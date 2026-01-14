@@ -2,7 +2,8 @@
 
 ## Exercise 1: All work processed once
 <display>
-    <summary>Hint for enqueing work</summary>
+    <summary>💡 Hint for enqueing work</summary>
+    
     ```csharp
     foreach (var workItem in workItems)
     {
@@ -10,8 +11,10 @@
     }
     ```
 </display>
+
 <display>
-    <summary>Hint for collecting results and detect completion</summary>
+    <summary>💡 Hint for collecting results and detect completion</summary>
+
     ```csharp
     private async Task CoordinateWork(
         Channel<TWorkResult> resultChannel,
