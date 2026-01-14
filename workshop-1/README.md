@@ -1,7 +1,7 @@
 # Workshop 1: Single-pass, global completion
 
 ## Exercise 1: All work processed once
-<display>
+<details>
     <summary>💡 Hint for enqueing work</summary>
     
     ```csharp
@@ -10,9 +10,9 @@
         await workChannel.Writer.WriteAsync(workItem, ct);
     }
     ```
-</display>
+</details>
 
-<display>
+<details>
     <summary>💡 Hint for collecting results and detect completion</summary>
 
     ```csharp
@@ -40,4 +40,4 @@
         }
     }
     ```
-</display>
+</details>
