@@ -2,42 +2,42 @@
 
 ## Exercise 1: All work processed once
 <details>
-    <summary>💡 Hint for enqueing work</summary>
-    
-    ```csharp
-    foreach (var workItem in workItems)
-    {
-        await workChannel.Writer.WriteAsync(workItem, ct);
-    }
-    ```
+<summary>💡 Hint for enqueing work</summary>
+
+```csharp
+foreach (var workItem in workItems)
+{
+    await workChannel.Writer.WriteAsync(workItem, ct);
+}
+```
 </details>
 
 <details>
-    <summary>💡 Hint for collecting results and detect completion</summary>
+<summary>💡 Hint for collecting results and detect completion</summary>
 
-    ```csharp
-    private async Task CoordinateWork(
-        Channel<TWorkResult> resultChannel,
-        CancellationToken ct)
+```csharp
+private async Task CoordinateWork(
+    Channel<TWorkResult> resultChannel,
+    CancellationToken ct)
+{
+    var completedCount = 0;
+    await foreach (var result in resultChannel.Reader.ReadAllAsync(ct))
     {
-        var completedCount = 0;
-        await foreach (var result in resultChannel.Reader.ReadAllAsync(ct))
+        // accumulate result
+        outcomeAccumulator.OnResult(result);
+
+        // track completion
+        completedCount++;
+
+        // report progress
+        ProgressChanged?.Invoke(this, completedCount);
+
+        // check for completion
+        if (completedCount >= workItems.Length)
         {
-            // accumulate result
-            outcomeAccumulator.OnResult(result);
-
-            // track completion
-            completedCount++;
-
-            // report progress
-            ProgressChanged?.Invoke(this, completedCount);
-
-            // check for completion
-            if (completedCount >= workItems.Length)
-            {
-                break;
-            }
+            break;
         }
     }
-    ```
+}
+```
 </details>
